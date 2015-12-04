@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<div>
+    <h1>@ViewBag.Title.</h1>
+    @*<h2>@ViewBag.Message</h2>*@
+</div>
+
+<div class="container">
+               <h2>@ViewBag.Message</h2>
+               <img src="../Images/Library.jpg" class="img-responsive" alt="Books" >
+        
+
+    <h3>Choose Your Book</h3>
+    <div class="row">
+        <div class="col-xs-8">
+            Choosebook is the website for readers and book recommendations. 
+            Our mission is to help people find and share books they love. Choosebook launched in October 2015.
+        </div>
+    </div>
+    <br/>
+    <h3> A Few Things You Can Do On Choosebook</h3>
+    <ul>
+        <li>Search the books you would like reading.</li>
+        <li>Recommend your reading experience for readers.</li>
+        <li>Find out books of particular genre.</li>
+    </ul>
+    <br/>
+    <h3>Visit our pages</h3>
+    <ul>
+        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+        <li>@Html.ActionLink("About", "About", "Home")</li>
+        <li>@Html.ActionLink("Review","ReviewBook","Review")</li>
+    </ul>
+</div>

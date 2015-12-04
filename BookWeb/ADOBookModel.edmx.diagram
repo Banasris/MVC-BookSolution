@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="23af772a5e3044b4b0f07fc4510fb2cf" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="MVCBookDBModel.author" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCBookDBModel.authorbook" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCBookDBModel.book" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCBookDBModel.customer" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MVCBookDBModel.postage" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <AssociationConnector Association="MVCBookDBModel.FK_authorbook_author" ManuallyRouted="false" />
+        <AssociationConnector Association="MVCBookDBModel.FK_authorbook_book" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MVCBookDBModel.review" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="MVCBookDBModel.FK_review_book" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

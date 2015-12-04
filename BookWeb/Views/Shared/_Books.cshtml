@@ -1,0 +1,61 @@
+﻿@model IPagedList<BookSearchViewModel>
+<div id="Books">
+    <div class="pagedList" data-choosebook-target="#Books">
+        @Html.PagedListPager(Model, Page=>Url.Action("Index","Home", new{Page}),
+        PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+
+
+@{int i=1;}
+@foreach (var item in Model)
+{
+    if (i == 1 || i % 4 == 0)
+        
+	{
+		@:<div class="row">
+	}
+	<div class="col-xs-2">
+                <a href="@Url.Action("Image", "Home", new { idOfBook = item.id})">
+                   <img src="data:image;base64,@System.Convert.ToBase64String(item.picture)" width="110" height="80"  class="thumbnail img-responsive" />
+                </a>
+                
+        @*<p class="site-title"><a href="@Url.Action("Index", "Home")">
+                           <img src="~/Images/logo.png" alt="Nav Air" />
+                       </a></p>*@
+    </div>
+	if (i > 0 && i % 4 == 0)
+	{
+		@:</div>
+	}
+	i++;
+}
+</div>
+
+<div class="container">
+    
+    <p style="font-size: large">Choose books by category </p>
+    <div class="row" >
+        <div class="col-sm-2" >
+            <h5>@Html.ActionLink("Art", "Genre", new { genreName = "Art" }, new {@style="color:#1F1F1F"})</h5>
+        </div>
+        <div class="col-sm-2">
+            <h5>@Html.ActionLink("Cookbooks", "Genre", new { genreName = "Cookbooks" }, new {@style="color:#1F1F1F"})</h5>
+        </div>
+        <div class="col-sm-2">
+            <h5>@Html.ActionLink("Non Fiction", "Genre", new { genreName = "Non Fiction" }, new {@style="color:#1F1F1F"})</h5>
+        </div>
+    
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <h5>@Html.ActionLink("Biography", "Genre", new { genreName = "Biography" }, new {@style="color:#1F1F1F"})</h5>
+        </div>
+        <div class="col-sm-2">
+             <h5>@Html.ActionLink("Fiction", "Genre", new { genreName = "Fiction" }, new {@style="color:#1F1F1F"})</h5>
+        </div>
+        <div class="col-sm-2">
+            <h5>@Html.ActionLink("Travel", "Genre", new { genreName = "Travel" }, new {@style="color:#1F1F1F"})</h5>
+        </div>
+    </div>
+</div>
+

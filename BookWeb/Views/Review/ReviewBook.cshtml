@@ -1,0 +1,41 @@
+﻿@model IEnumerable<BookWeb.Models.ReviewBookModel>
+
+@{
+    ViewBag.Title = "ReviewBook";
+}
+
+<h2>ReviewBook</h2>
+
+<h3>@ViewBag.review</h3>
+<br />
+
+@foreach(var item in Model)
+{
+    @:<div class="row">
+        <div class="col-xs-1">
+            <a href="#">
+                <img src="data:image;base64,@System.Convert.ToBase64String(item.picture)" width="110" height="80" class="thumbnail img-responsive"/>
+            </a>
+        </div>
+        <div class="col-xs-11">
+            <div>
+                <h4><strong>@item.reviewername</strong> rated a book <strong>@item.rating</strong></h4>
+            </div>
+            <div>
+                <h4>@item.title</h4>
+            </div>
+            @*<div> 
+                <b>by:</b> @item.name
+            </div>*@
+            <div> 
+                <strong>wrote in </strong> @item.dateofreview.Value.ToShortDateString()
+            </div>
+            <div> 
+                <strong>@item.reviewername</strong> said: "@item.body"
+            </div>
+        </div>
+    @:</div> 
+     <hr/>
+	
+}
+

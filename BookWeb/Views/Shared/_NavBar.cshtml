@@ -1,0 +1,45 @@
+﻿<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+@helper ActiveItem(string actionName, string controllerName, string areaName)
+{
+    if (ViewContext.RouteData.Values["action"].ToString() == actionName &&
+            ViewContext.RouteData.Values["controller"].ToString() == controllerName &&
+            (ViewContext.RouteData.DataTokens["area"] == null || ViewContext.RouteData.DataTokens["area"].ToString() == areaName))
+    {
+        @:active
+    }
+}
+ 
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Choose Book</a>
+   <!--start --->
+   <form method="get" role="search" style="width: 30em; margin: 0.4em 2em;" action="@Url.Action("Index", "Home")" 
+                data-choosebook-ajax="true" data-choosebook-target="#Books">  
+        <div class="input-group">
+            <input class="form-control" type="text" name="searchTerm" id="searchTerm" style="height: 2.3em;" placeholder="Search Book By Title">
+            <div class="input-group-btn">
+                <button class="btn btn-default" style="height: 2.3em;" type="submit">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true">
+                    </span>
+                </button>
+            </div>
+        </div>
+   </form> 
+   <!-- End-->
+        </div>
+        <div class="navbar-collapse collapse">
+           <ul class="nav navbar-nav">
+                <li class="@ActiveItem("Index", "Home", null)">@Html.ActionLink("Home", "Index", "Home")</li>
+                <li class="@ActiveItem("About", "Home", null)">@Html.ActionLink("About", "About", "Home")</li>
+                <li class="@ActiveItem("Contact", "Home", null)">@Html.ActionLink("Contact", "Contact", "Home")</li>
+               <li class="@ActiveItem("ReviewBook", "Review",null)">@Html.ActionLink("Review","ReviewBook","Review")</li>
+            </ul>
+        </div>
+    </div>
+</div>

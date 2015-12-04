@@ -1,0 +1,350 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MVCBookDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="author">
+          <Key>
+            <PropertyRef Name="authorid" />
+          </Key>
+          <Property Name="authorid" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="24" />
+        </EntityType>
+        <EntityType Name="authorbook">
+          <Key>
+            <PropertyRef Name="authorbookid" />
+          </Key>
+          <Property Name="authorbookid" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="bookid" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="authorid" Type="nchar" MaxLength="12" Nullable="false" />
+        </EntityType>
+        <EntityType Name="book">
+          <Key>
+            <PropertyRef Name="bookid" />
+          </Key>
+          <Property Name="bookid" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="availability" Type="nchar" MaxLength="30" />
+          <Property Name="booktype" Type="nchar" MaxLength="20" />
+          <Property Name="publisher" Type="nchar" MaxLength="20" />
+          <Property Name="isbn" Type="nchar" MaxLength="20" />
+          <Property Name="itemsinstock" Type="smallint" />
+          <Property Name="price" Type="smallmoney" />
+          <Property Name="title" Type="nvarchar" MaxLength="50" />
+          <Property Name="picture" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customerid" />
+          </Key>
+          <Property Name="customerid" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="name" Type="nchar" MaxLength="20" />
+          <Property Name="address" Type="nvarchar" MaxLength="50" />
+          <Property Name="zip" Type="nchar" MaxLength="8" />
+          <Property Name="telephone" Type="int" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="postage">
+          <Key>
+            <PropertyRef Name="postageid" />
+          </Key>
+          <Property Name="postageid" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="value" Type="int" />
+          <Property Name="wait" Type="smallint" />
+        </EntityType>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="reviewid" />
+          </Key>
+          <Property Name="reviewid" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="reviewername" Type="nchar" MaxLength="50" />
+          <Property Name="bookid" Type="nchar" MaxLength="12" Nullable="false" />
+          <Property Name="rating" Type="int" />
+          <Property Name="body" Type="nvarchar(max)" />
+          <Property Name="dateodreview" Type="date" />
+        </EntityType>
+        <Association Name="FK_authorbook_author">
+          <End Role="author" Type="Self.author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="authorbook" Type="Self.authorbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="author">
+              <PropertyRef Name="authorid" />
+            </Principal>
+            <Dependent Role="authorbook">
+              <PropertyRef Name="authorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_authorbook_book">
+          <End Role="book" Type="Self.book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="authorbook" Type="Self.authorbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="book">
+              <PropertyRef Name="bookid" />
+            </Principal>
+            <Dependent Role="authorbook">
+              <PropertyRef Name="bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_review_book">
+          <End Role="book" Type="Self.book" Multiplicity="1" />
+          <End Role="review" Type="Self.review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="book">
+              <PropertyRef Name="bookid" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MVCBookDBModelStoreContainer">
+          <EntitySet Name="author" EntityType="Self.author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="authorbook" EntityType="Self.authorbook" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="book" EntityType="Self.book" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="customer" EntityType="Self.customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="postage" EntityType="Self.postage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="review" EntityType="Self.review" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_authorbook_author" Association="Self.FK_authorbook_author">
+            <End Role="author" EntitySet="author" />
+            <End Role="authorbook" EntitySet="authorbook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_authorbook_book" Association="Self.FK_authorbook_book">
+            <End Role="book" EntitySet="book" />
+            <End Role="authorbook" EntitySet="authorbook" />
+          </AssociationSet>
+          <AssociationSet Name="FK_review_book" Association="Self.FK_review_book">
+            <End Role="book" EntitySet="book" />
+            <End Role="review" EntitySet="review" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MVCBookDBModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MVCBookDBEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="authors" EntityType="MVCBookDBModel.author" />
+          <EntitySet Name="authorbooks" EntityType="MVCBookDBModel.authorbook" />
+          <EntitySet Name="books" EntityType="MVCBookDBModel.book" />
+          <EntitySet Name="customers" EntityType="MVCBookDBModel.customer" />
+          <EntitySet Name="postages" EntityType="MVCBookDBModel.postage" />
+          <AssociationSet Name="FK_authorbook_author" Association="MVCBookDBModel.FK_authorbook_author">
+            <End Role="author" EntitySet="authors" />
+            <End Role="authorbook" EntitySet="authorbooks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_authorbook_book" Association="MVCBookDBModel.FK_authorbook_book">
+            <End Role="book" EntitySet="books" />
+            <End Role="authorbook" EntitySet="authorbooks" />
+          </AssociationSet>
+          <EntitySet Name="reviews" EntityType="MVCBookDBModel.review" />
+          <AssociationSet Name="FK_review_book" Association="MVCBookDBModel.FK_review_book">
+            <End Role="book" EntitySet="books" />
+            <End Role="review" EntitySet="reviews" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="author">
+          <Key>
+            <PropertyRef Name="authorid" />
+          </Key>
+          <Property Name="authorid" Type="String" Nullable="false" MaxLength="12" Unicode="true" FixedLength="true" />
+          <Property Name="name" Type="String" MaxLength="24" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="authorbooks" Relationship="MVCBookDBModel.FK_authorbook_author" FromRole="author" ToRole="authorbook" />
+        </EntityType>
+        <EntityType Name="authorbook">
+          <Key>
+            <PropertyRef Name="authorbookid" />
+          </Key>
+          <Property Name="authorbookid" Type="String" Nullable="false" MaxLength="12" Unicode="true" FixedLength="true" />
+          <Property Name="bookid" Type="String" Nullable="false" MaxLength="12" Unicode="true" FixedLength="true" />
+          <Property Name="authorid" Type="String" Nullable="false" MaxLength="12" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="author" Relationship="MVCBookDBModel.FK_authorbook_author" FromRole="authorbook" ToRole="author" />
+          <NavigationProperty Name="book" Relationship="MVCBookDBModel.FK_authorbook_book" FromRole="authorbook" ToRole="book" />
+        </EntityType>
+        <EntityType Name="book">
+          <Key>
+            <PropertyRef Name="bookid" />
+          </Key>
+          <Property Name="bookid" Type="String" Nullable="false" MaxLength="12" Unicode="true" FixedLength="true" />
+          <Property Name="availability" Type="String" MaxLength="30" Unicode="true" FixedLength="true" />
+          <Property Name="booktype" Type="String" MaxLength="20" Unicode="true" FixedLength="true" />
+          <Property Name="publisher" Type="String" MaxLength="20" Unicode="true" FixedLength="true" />
+          <Property Name="isbn" Type="String" MaxLength="20" Unicode="true" FixedLength="true" />
+          <Property Name="itemsinstock" Type="Int16" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="title" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="authorbooks" Relationship="MVCBookDBModel.FK_authorbook_book" FromRole="book" ToRole="authorbook" />
+          <NavigationProperty Name="reviews" Relationship="MVCBookDBModel.FK_review_book" FromRole="book" ToRole="review" />
+        </EntityType>
+        <EntityType Name="customer">
+          <Key>
+            <PropertyRef Name="customerid" />
+          </Key>
+          <Property Name="customerid" Type="String" Nullable="false" MaxLength="12" Unicode="true" FixedLength="true" />
+          <Property Name="name" Type="String" MaxLength="20" Unicode="true" FixedLength="true" />
+          <Property Name="address" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="zip" Type="String" MaxLength="8" Unicode="true" FixedLength="true" />
+          <Property Name="telephone" Type="Int32" />
+          <Property Name="email" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="postage">
+          <Key>
+            <PropertyRef Name="postageid" />
+          </Key>
+          <Property Name="postageid" Type="String" Nullable="false" MaxLength="12" Unicode="true" FixedLength="true" />
+          <Property Name="value" Type="Int32" />
+          <Property Name="wait" Type="Int16" />
+        </EntityType>
+        <Association Name="FK_authorbook_author">
+          <End Role="author" Type="MVCBookDBModel.author" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="authorbook" Type="MVCBookDBModel.authorbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="author">
+              <PropertyRef Name="authorid" />
+            </Principal>
+            <Dependent Role="authorbook">
+              <PropertyRef Name="authorid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_authorbook_book">
+          <End Role="book" Type="MVCBookDBModel.book" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="authorbook" Type="MVCBookDBModel.authorbook" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="book">
+              <PropertyRef Name="bookid" />
+            </Principal>
+            <Dependent Role="authorbook">
+              <PropertyRef Name="bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="review">
+          <Key>
+            <PropertyRef Name="reviewid" />
+          </Key>
+          <Property Name="reviewid" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="reviewername" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="bookid" Type="String" Nullable="false" MaxLength="12" FixedLength="true" Unicode="true" />
+          <Property Name="rating" Type="Int32" />
+          <Property Name="body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dateodreview" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="book" Relationship="MVCBookDBModel.FK_review_book" FromRole="review" ToRole="book" />
+        </EntityType>
+        <Association Name="FK_review_book">
+          <End Type="MVCBookDBModel.book" Role="book" Multiplicity="1" />
+          <End Type="MVCBookDBModel.review" Role="review" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="book">
+              <PropertyRef Name="bookid" />
+            </Principal>
+            <Dependent Role="review">
+              <PropertyRef Name="bookid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MVCBookDBModelStoreContainer" CdmEntityContainer="MVCBookDBEntities">
+          <EntitySetMapping Name="authors">
+            <EntityTypeMapping TypeName="MVCBookDBModel.author">
+              <MappingFragment StoreEntitySet="author">
+                <ScalarProperty Name="authorid" ColumnName="authorid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="authorbooks">
+            <EntityTypeMapping TypeName="MVCBookDBModel.authorbook">
+              <MappingFragment StoreEntitySet="authorbook">
+                <ScalarProperty Name="authorbookid" ColumnName="authorbookid" />
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+                <ScalarProperty Name="authorid" ColumnName="authorid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="books">
+            <EntityTypeMapping TypeName="MVCBookDBModel.book">
+              <MappingFragment StoreEntitySet="book">
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+                <ScalarProperty Name="availability" ColumnName="availability" />
+                <ScalarProperty Name="booktype" ColumnName="booktype" />
+                <ScalarProperty Name="publisher" ColumnName="publisher" />
+                <ScalarProperty Name="isbn" ColumnName="isbn" />
+                <ScalarProperty Name="itemsinstock" ColumnName="itemsinstock" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="picture" ColumnName="picture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="customers">
+            <EntityTypeMapping TypeName="MVCBookDBModel.customer">
+              <MappingFragment StoreEntitySet="customer">
+                <ScalarProperty Name="customerid" ColumnName="customerid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="zip" ColumnName="zip" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="postages">
+            <EntityTypeMapping TypeName="MVCBookDBModel.postage">
+              <MappingFragment StoreEntitySet="postage">
+                <ScalarProperty Name="postageid" ColumnName="postageid" />
+                <ScalarProperty Name="value" ColumnName="value" />
+                <ScalarProperty Name="wait" ColumnName="wait" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="reviews">
+            <EntityTypeMapping TypeName="MVCBookDBModel.review">
+              <MappingFragment StoreEntitySet="review">
+                <ScalarProperty Name="dateodreview" ColumnName="dateodreview" />
+                <ScalarProperty Name="body" ColumnName="body" />
+                <ScalarProperty Name="rating" ColumnName="rating" />
+                <ScalarProperty Name="bookid" ColumnName="bookid" />
+                <ScalarProperty Name="reviewername" ColumnName="reviewername" />
+                <ScalarProperty Name="reviewid" ColumnName="reviewid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
